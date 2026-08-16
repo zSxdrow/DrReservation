@@ -1,0 +1,11 @@
+C:\Users\User\source\repos\DR Reservation\Domain\bin\Debug\net9.0\Dr.Domain.deps.json
+C:\Users\User\source\repos\DR Reservation\Domain\bin\Debug\net9.0\Dr.Domain.dll
+C:\Users\User\source\repos\DR Reservation\Domain\bin\Debug\net9.0\Dr.Domain.pdb
+C:\Users\User\source\repos\DR Reservation\Domain\obj\Debug\net9.0\Dr.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\DR Reservation\Domain\obj\Debug\net9.0\Dr.Domain.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\DR Reservation\Domain\obj\Debug\net9.0\Dr.Domain.AssemblyInfo.cs
+C:\Users\User\source\repos\DR Reservation\Domain\obj\Debug\net9.0\Dr.Domain.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\DR Reservation\Domain\obj\Debug\net9.0\Dr.Domain.dll
+C:\Users\User\source\repos\DR Reservation\Domain\obj\Debug\net9.0\refint\Dr.Domain.dll
+C:\Users\User\source\repos\DR Reservation\Domain\obj\Debug\net9.0\Dr.Domain.pdb
+C:\Users\User\source\repos\DR Reservation\Domain\obj\Debug\net9.0\ref\Dr.Domain.dll

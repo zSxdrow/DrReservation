@@ -1,0 +1,343 @@
+﻿@{
+    ViewData["Title"] = "رزرو نوبت";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .cal-day {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+    }
+
+        .cal-day:hover:not(.disabled):not(.holiday) {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .cal-day.selected {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .cal-day.disabled {
+            color: #d1d5db;
+            cursor: default;
+        }
+
+        .cal-day.holiday {
+            color: #ef4444;
+            cursor: not-allowed;
+        }
+
+        .cal-day.today {
+            border: 1px solid #3b82f6;
+        }
+
+    .time-card {
+        padding: 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+        .time-card:hover:not(.taken) {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .time-card.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .time-card.taken {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: #f9fafb;
+        }
+
+    .step-dot {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+        .step-dot.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .step-dot.done {
+            background: #10b981;
+            color: white;
+        }
+
+        .step-dot.pending {
+            background: #f3f4f6;
+            color: #9ca3af;
+            border: 1px solid #e5e7eb;
+        }
+</style>
+
+<div dir="rtl" style="max-width:560px; margin:2rem auto; padding:0 1rem;">
+
+    <div style="display:flex; align-items:center; gap:0; margin-bottom:2rem;">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+            <div class="step-dot active" id="dot1">1</div>
+            <span style="font-size:11px; color:#6b7280;">تاریخ</span>
+        </div>
+        <div style="flex:1; height:1px; background:#e5e7eb; margin:0 8px; margin-bottom:18px;"></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+            <div class="step-dot pending" id="dot2">2</div>
+            <span style="font-size:11px; color:#6b7280;">زمان</span>
+        </div>
+        <div style="flex:1; height:1px; background:#e5e7eb; margin:0 8px; margin-bottom:18px;"></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+            <div class="step-dot pending" id="dot3">3</div>
+            <span style="font-size:11px; color:#6b7280;">اطلاعات</span>
+        </div>
+        <div style="flex:1; height:1px; background:#e5e7eb; margin:0 8px; margin-bottom:18px;"></div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+            <div class="step-dot pending" id="dot4">4</div>
+            <span style="font-size:11px; color:#6b7280;">تأیید</span>
+        </div>
+    </div>
+
+    <!-- مرحله ۱: تقویم -->
+    <div id="step1">
+        <div style="background:white; border:1px solid #e5e7eb; border-radius:12px; padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <button onclick="changeMonth(-1)" class="btn btn-sm btn-outline-secondary">›</button>
+                <strong id="monthTitle"></strong>
+                <button onclick="changeMonth(1)" class="btn btn-sm btn-outline-secondary">‹</button>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:8px; text-align:center;">
+                <div style="font-size:11px; color:#6b7280;">ش</div>
+                <div style="font-size:11px; color:#6b7280;">ی</div>
+                <div style="font-size:11px; color:#6b7280;">د</div>
+                <div style="font-size:11px; color:#6b7280;">س</div>
+                <div style="font-size:11px; color:#6b7280;">چ</div>
+                <div style="font-size:11px; color:#6b7280;">پ</div>
+                <div style="font-size:11px; color:#ef4444;">ج</div>
+            </div>
+            <div id="calGrid" style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px;"></div>
+            <div id="dateError" class="text-danger mt-2" style="font-size:12px; display:none;"></div>
+        </div>
+    </div>
+
+    <!-- مرحله ۲: انتخاب زمان -->
+    <div id="step2" style="display:none;">
+        <div style="background:white; border:1px solid #e5e7eb; border-radius:12px; padding:1.5rem;">
+            <p style="font-size:13px; color:#6b7280; margin:0 0 4px;">تاریخ انتخابی</p>
+            <p id="selectedDateLabel" style="font-size:15px; font-weight:500; margin:0 0 1.25rem;"></p>
+            <p style="font-size:13px; color:#6b7280; margin:0 0 12px;">زمان مراجعه را انتخاب کنید:</p>
+            <div id="timeGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;"></div>
+            <div id="timeError" class="text-danger mt-2" style="font-size:12px; display:none;">لطفا یک زمان انتخاب کنید</div>
+            <div style="display:flex; gap:10px; margin-top:1.25rem;">
+                <button onclick="goStep(1)" class="btn btn-outline-secondary" style="flex:1;">بازگشت</button>
+                <button onclick="goStep(3)" class="btn btn-primary" style="flex:2;">مرحله بعد</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مرحله ۳: اطلاعات بیمار -->
+    <div id="step3" style="display:none;">
+        <div style="background:white; border:1px solid #e5e7eb; border-radius:12px; padding:1.5rem;">
+            <div style="background:#f9fafb; border-radius:8px; padding:10px 14px; margin-bottom:1.25rem; font-size:13px; color:#6b7280;">
+                <span id="summaryLabel"></span>
+            </div>
+            <div style="display:grid; gap:12px;">
+                <div>
+                    <label class="form-label" style="font-size:12px; color:#6b7280;">نام و نام خانوادگی</label>
+                    <input type="text" id="fullname" class="form-control" placeholder="نام و نام خانوادگی">
+                </div>
+                <div>
+                    <label class="form-label" style="font-size:12px; color:#6b7280;">کد ملی</label>
+                    <input type="text" id="natcode" class="form-control" placeholder="0000000000" maxlength="10"
+                           oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                </div>
+                <div>
+                    <label class="form-label" style="font-size:12px; color:#6b7280;">شماره تلفن</label>
+                    <input type="text" id="phone" class="form-control" placeholder="09000000000" maxlength="11"
+                           oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                </div>
+            </div>
+            <div id="infoError" class="text-danger mt-2" style="font-size:12px; display:none;"></div>
+            <div style="display:flex; gap:10px; margin-top:1.25rem;">
+                <button onclick="goStep(2)" class="btn btn-outline-secondary" style="flex:1;">بازگشت</button>
+                <button onclick="submitReservation()" class="btn btn-success" style="flex:2;">ثبت نوبت</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مرحله ۴: تأیید -->
+    <div id="step4" style="display:none;">
+        <div style="background:white; border:1px solid #d1fae5; border-radius:12px; padding:2rem; text-align:center;">
+            <div style="width:52px; height:52px; border-radius:50%; background:#d1fae5; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; font-size:24px; color:#10b981;">✓</div>
+            <p style="font-size:16px; font-weight:500; margin:0 0 6px;">نوبت شما ثبت شد</p>
+            <p id="confirmMsg" style="font-size:13px; color:#6b7280; margin:0 0 1.5rem;"></p>
+            <div id="codeBox" style="background:#f9fafb; border-radius:8px; padding:10px 16px; display:inline-block; font-size:13px;"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const jalaliMonths = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+        const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+        // ← تعطیلات رو از ViewBag بگیر یا اینجا تعریف کن
+        const holidays = {
+            '1403/4/7': true, '1403/4/14': true, '1403/4/21': true, '1403/4/28': true
+        };
+
+        let curYear = 1403, curMonth = 4, selDate = null, selTime = null;
+        let availableTimes = [];
+
+        function jDaysInMonth(y, m) {
+            if (m <= 6) return 31;
+            if (m <= 11) return 30;
+            return (y % 4 === 3) ? 30 : 29;
+        }
+
+        function jDayOfWeek(y, m, d) {
+            let mo = 0;
+            for (let i = 1; i < m; i++) mo += (i <= 6) ? 31 : 30;
+            const epg = Math.floor((y - 1) / 4);
+            const jdn = 365 * (y - 1) + epg + mo + d + 1948319;
+            return (jdn + 1) % 7;
+        }
+
+        function renderCal() {
+            document.getElementById('monthTitle').textContent = toFa(curYear) + ' ' + jalaliMonths[curMonth - 1];
+            const grid = document.getElementById('calGrid');
+            grid.innerHTML = '';
+            const days = jDaysInMonth(curYear, curMonth);
+            const firstDow = jDayOfWeek(curYear, curMonth, 1);
+            const offset = (firstDow + 1) % 7;
+            for (let i = 0; i < offset; i++) grid.appendChild(document.createElement('div'));
+
+            const today = { y: 1403, m: 4, d: 15 }; // ← این رو از سرور بگیر
+            for (let d = 1; d <= days; d++) {
+                const key = curYear + '/' + curMonth + '/' + d;
+                const dow = jDayOfWeek(curYear, curMonth, d);
+                const isHoliday = dow === 6 || holidays[key];
+                const isPast = (curYear < today.y) || (curYear === today.y && curMonth < today.m) || (curYear === today.y && curMonth === today.m && d < today.d);
+                const isToday = curYear === today.y && curMonth === today.m && d === today.d;
+                const isSel = selDate && selDate.y === curYear && selDate.m === curMonth && selDate.d === d;
+
+                const el = document.createElement('div');
+                el.className = 'cal-day' + (isHoliday ? ' holiday' : '') + (isPast ? ' disabled' : '') + (isToday ? ' today' : '') + (isSel ? ' selected' : '');
+                el.textContent = toFa(d);
+                if (!isPast && !isHoliday) {
+                    el.onclick = () => { selDate = { y: curYear, m: curMonth, d }; renderCal(); setTimeout(() => goStep(2), 300); };
+                } else if (isHoliday && !isPast) {
+                    el.onclick = () => { const e = document.getElementById('dateError'); e.textContent = 'این روز تعطیل است'; e.style.display = 'block'; setTimeout(() => e.style.display = 'none', 3000); };
+                }
+                grid.appendChild(el);
+            }
+        }
+
+        function changeMonth(dir) {
+            curMonth += dir;
+            if (curMonth > 12) { curMonth = 1; curYear++; }
+            if (curMonth < 1) { curMonth = 12; curYear--; }
+            renderCal();
+        }
+
+        function loadTimes() {
+            // ← اینجا AJAX بزن به سرور و نوبت‌های خالی رو بگیر
+            $.ajax({
+                url: '/Appoinment/GetAvailableTimes',
+                data: { year: selDate.y, month: selDate.m, day: selDate.d },
+                success: function (data) {
+                    availableTimes = data;
+                    renderTimes();
+                }
+            });
+        }
+
+        function renderTimes() {
+            const grid = document.getElementById('timeGrid');
+            grid.innerHTML = '';
+            availableTimes.forEach(t => {
+                const el = document.createElement('div');
+                el.className = 'time-card' + (t.isTaken ? ' taken' : '') + (selTime === t.id ? ' selected' : '');
+                el.innerHTML = `<p style="margin:0; font-size:15px; font-weight:500;">${t.label}</p>
+                                <p style="margin:4px 0 0; font-size:11px; color:${t.isTaken ? '#ef4444' : '#10b981'};">${t.isTaken ? 'رزرو شده' : 'خالی'}</p>`;
+                if (!t.isTaken) el.onclick = () => { selTime = t.id; renderTimes(); };
+                grid.appendChild(el);
+            });
+        }
+
+        function goStep(n) {
+            if (n === 2) {
+                document.getElementById('selectedDateLabel').textContent = toFa(selDate.d) + ' ' + jalaliMonths[selDate.m - 1] + ' ' + toFa(selDate.y);
+                document.getElementById('timeError').style.display = 'none';
+                loadTimes();
+            }
+            if (n === 3) {
+                if (!selTime) { document.getElementById('timeError').style.display = 'block'; return; }
+                const t = availableTimes.find(x => x.id === selTime);
+                document.getElementById('summaryLabel').textContent = toFa(selDate.d) + ' ' + jalaliMonths[selDate.m - 1] + ' ' + toFa(selDate.y) + ' — ساعت ' + t.label;
+            }
+            for (let i = 1; i <= 4; i++) {
+                const el = document.getElementById('step' + i);
+                if (el) el.style.display = i === n ? 'block' : 'none';
+                const dot = document.getElementById('dot' + i);
+                dot.className = 'step-dot ' + (i < n ? 'done' : i === n ? 'active' : 'pending');
+                dot.textContent = i < n ? '✓' : i;
+            }
+        }
+
+        function submitReservation() {
+            const name = document.getElementById('fullname').value.trim();
+            const nat = document.getElementById('natcode').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const err = document.getElementById('infoError');
+
+            if (!name) { err.textContent = 'نام را وارد کنید'; err.style.display = 'block'; return; }
+            if (!/^\d{10}$/.test(nat)) { err.textContent = 'کد ملی باید ۱۰ رقم باشد'; err.style.display = 'block'; return; }
+            if (!/^09\d{9}$/.test(phone)) { err.textContent = 'شماره تلفن باید با ۰۹ شروع شده و ۱۱ رقم باشد'; err.style.display = 'block'; return; }
+            err.style.display = 'none';
+
+            const t = availableTimes.find(x => x.id === selTime);
+            $.ajax({
+                url: '/Appoinment/AddAppoinment',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: {
+                    Name: name.split(' ')[0],
+                    lName: name.split(' ').slice(1).join(' '),
+                    NationalCode: nat,
+                    Phone: phone,
+                    DateID: selDate.dateId,
+                    TimeID: selTime
+                },
+                success: function (result) {
+                    if (result.isSuccess) {
+                        document.getElementById('confirmMsg').textContent = name + ' — ' + toFa(selDate.d) + ' ' + jalaliMonths[selDate.m - 1] + ' ساعت ' + t.label;
+                        document.getElementById('codeBox').innerHTML = 'کد نوبت: <strong>' + result.data + '</strong>';
+                        goStep(4);
+                    } else {
+                        Swal.fire('خطا', result.message, 'error');
+                    }
+                }
+            });
+        }
+
+        renderCal();
+    </script>
+}

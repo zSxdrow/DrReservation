@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using Dr.Application.Services.Categories.Queries.GetCategories
+
+@model List<CategoriesDto>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Aroma Shop - ticket</title>
+    <link rel="icon" href="~/img/Fevicon.png" type="image/png" />
+    <link rel="stylesheet" href="~/vendors/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/vendors/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="~/vendors/linericon/style.css" />
+    <link rel="stylesheet"
+          href="~/vendors/owl-carousel/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="~/vendors/owl-carousel/owl.carousel.min.css" />
+
+    <link rel="stylesheet" href="~/css/style.css" />
+    <style>
+        body {
+            margin-top: 20px;
+        }
+
+        /* USER LIST TABLE */
+        .user-list tbody td > img {
+            position: relative;
+            max-width: 50px;
+            float: left;
+            margin-right: 15px;
+        }
+
+        .user-list tbody td .user-link {
+            display: block;
+            font-size: 1.25em;
+            padding-top: 3px;
+            margin-left: 60px;
+        }
+
+        .user-list tbody td .user-subhead {
+            font-size: 0.875em;
+            font-style: italic;
+        }
+
+        .table {
+            border-collapse: separate;
+        }
+
+        .table-hover > tbody > tr:hover > td,
+        .table-hover > tbody > tr:hover > th {
+            background-color: #eee;
+        }
+
+        .table thead > tr > th {
+            border-bottom: 1px solid #c2c2c2;
+            padding-bottom: 0;
+        }
+
+        .table tbody > tr > td {
+            font-size: 0.875em;
+            background: #f5f5f5;
+            border-top: 10px solid #fff;
+            vertical-align: middle;
+            padding: 12px 8px;
+        }
+
+            .table tbody > tr > td:first-child,
+            .table thead > tr > th:first-child {
+                padding-left: 20px;
+            }
+
+        .table thead > tr > th span {
+            border-bottom: 2px solid #c2c2c2;
+            display: inline-block;
+            padding: 0 5px;
+            padding-bottom: 5px;
+            font-weight: normal;
+        }
+
+        .table a.table-link {
+            margin: 0 5px;
+            font-size: 1.125em;
+        }
+
+            .table a.table-link:hover {
+                text-decoration: none;
+                color: #2aa493;
+            }
+
+            .table a.table-link.danger {
+                color: #fe635f;
+            }
+
+                .table a.table-link.danger:hover {
+                    color: #dd504c;
+                }
+
+        .label {
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+        }
+
+        .label-default {
+            background-color: #777;
+            color: #fff;
+        }
+
+        .label-success {
+            background-color: #5cb85c;
+            color: #fff;
+        }
+
+        .label-danger {
+            background-color: #d9534f;
+            color: #fff;
+        }
+
+        .label-warning {
+            background-color: #f0ad4e;
+            color: #fff;
+        }
+
+        .nice-select.form-select {
+            display: none !important;
+        }
+
+        .form-select {
+            display: flex !important;
+        }
+
+        #PriontySelect {
+            display: flex !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================ start banner area ================= -->
+    <!-- ================ end banner area ================= -->
+    <!-- ================ contact section start ================= -->
+
+    <div class="text-center">
+        <h1>دسته بندی ها</h1>
+    </div>
+
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <a class="btn btn-success mb-3 float-end"
+                   href="@Url.Action("AddNewCategory", "Category")" style="margin-left:950px">
+                    افزودن دسته بندی
+                </a>
+
+                <div class="table-responsive">
+                    <table class="table table-hover" dir="rtl">
+                        <thead>
+                            <tr>
+                                <th>دسته بندی</th>
+                                <th>پدر</th>
+                                <th class="text-center">افزودن فرزند</th>
+                                <th>مشاهده فرزندان</th>
+                                <th>ویرایش</th>
+                                <th>حذف</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@(item.Parent?.Name ?? "-")</td>
+                                    <td>
+                                        @if (item.Parent == null)
+                                        {
+                                            <a href="@Url.Action("AddNewCategory", "Category", new { ParentID = item.ID })"
+                                               class="btn btn-success btn-sm">افزودن فرزند</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.HasChild)
+                                        {
+                                            <a href="@Url.Action("Index", "Category", new { ParentID = item.ID })"
+                                               class="btn btn-info btn-sm">مشاهده</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm"
+                                                onclick="ShowModalEdit('@item.ID', '@item.Name')">
+                                            ویرایش
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm"
+                                                onclick="DeleteCategory(@item.ID)">
+                                            حذف
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>ویرایش دسته بندی</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editId" />
+                    <div class="mb-3">
+                        <label>نام دسته بندی</label>
+                        <input type="text" class="form-control" id="editName" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="button" class="btn btn-primary" onclick="EditCategory()">تایید</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ================ contact section end ================= -->
+    <!--================ End footer Area  =================-->
+
+    <script src="~/vendors/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="~/vendors/skrollr.min.js"></script>
+    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="~/vendors/jquery.form.js"></script>
+    <script src="~/vendors/jquery.validate.min.js"></script>
+    <script src="~/vendors/contact.js"></script>
+    <script src="~/vendors/jquery.ajaxchimp.min.js"></script>
+    <script src="~/vendors/mail-script.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/tickect.js"></script>
+
+    @section Scripts {
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function DeleteCategory(id) {
+                Swal.fire({
+                    title: 'حذف دسته بندی؟',
+                    text: "این عمل قابل بازگشت نیست!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'بله، حذف کن',
+                    cancelButtonText: 'انصراف'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post('/Category/index',
+                              { CategoryID: id },
+                              function(data) {
+                            if (data.isSuccess) {
+                                Swal.fire('موفق!', data.message, 'success').then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire('خطا!', data.message, 'error');
+                            }
+                        });
+                    }
+                });
+            }
+
+            function ShowModalEdit(id, name) {
+                $('#editId').val(id);
+                $('#editName').val(name);
+                $('#editModal').modal('show');
+            }
+
+            function EditCategory() {
+                var id = $('#editId').val();
+                var name = $('#editName').val();
+
+                $.post('@Url.Action("EditCategory", "Products")',
+                      { CategoryID: id, Name: name },
+                      function(data) {
+                    if (data.isSuccess) {
+                        Swal.fire('موفق!', data.message, 'success').then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire('خطا!', data.message, 'error');
+                    }
+                });
+                $('#editModal').modal('hide');
+            }
+        </script>
+    }
+
+
+</body>
+</html>
+
+

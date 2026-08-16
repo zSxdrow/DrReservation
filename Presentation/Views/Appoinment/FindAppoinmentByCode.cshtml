@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "پیگیری نوبت";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4" dir="rtl">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+
+           
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <div class="text-center mb-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                         style="width:56px;height:56px;">
+                        <i class="ti ti-calendar-search fs-4 text-primary"></i>
+                    </div>
+                    <h4 class="fw-medium mb-1">پیگیری نوبت</h4>
+                    <p class="text-muted small mb-0">کد رهگیری خود را وارد کنید</p>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-light border-end-0">
+                        <i class="ti ti-search text-muted"></i>
+                    </span>
+                    <input type="text" id="appCode"
+                           class="form-control border-start-0 bg-light"
+                           placeholder="کد رهگیری خود را اینجا وارد کنید"
+                           maxlength="14" />
+                </div>
+
+                <button class="btn btn-primary w-100 py-2" id="btnSearch" onclick="SearchAppointment()">
+                    <i class="ti ti-search me-1"></i> جستجو
+                </button>
+
+                <p class="text-center text-muted" style="font-size:12px; margin-top:10px;">
+                    کد رهگیری از طریق پیامک هنگام ثبت نوبت ارسال شده است
+                </p>
+            </div>
+
+            
+            <div id="resultSection" class="mt-3" style="display:none;"></div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Sweetalert2/sweetalert2.min.js"></script>
+
+    <script>
+        // ✅ تابع جستجو - این بود که وجود نداشت!
+        function SearchAppointment() {
+            var code = $("#appCode").val().trim();
+
+            if (code === '') {
+                Swal.fire('توجه!', 'لطفاً کد رهگیری را وارد کنید', 'warning');
+                return;
+            }
+
+            // نمایش لودینگ روی دکمه
+            $("#btnSearch").prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span> در حال جستجو...');
+
+            $.ajax({
+                type: 'GET',
+                url: '/Appoinment/GetAppByCode',
+                data: { TCode: code },
+                dataType: 'json',
+                success: function (data) {
+                    $("#btnSearch").prop('disabled', false).html('<i class="ti ti-search me-1"></i> جستجو');
+
+                    if (data.isSuccess) {
+                        ShowResult(data.data);
+                    } else {
+                        $("#resultSection").hide();
+                        Swal.fire('یافت نشد!', data.message, 'warning');
+                    }
+                },
+                error: function () {
+                    $("#btnSearch").prop('disabled', false).html('<i class="ti ti-search me-1"></i> جستجو');
+                    Swal.fire('خطا!', 'ارتباط با سرور برقرار نشد', 'error');
+                }
+            });
+        }
+
+        // ✅ نمایش نتیجه به صورت کارت
+        function ShowResult(d) {
+            var visitedBadge = d.isVisited === 'مراجعه کرده است'
+                ? '<span class="badge bg-success">مراجعه کرده است</span>'
+                : '<span class="badge bg-warning text-dark">مراجعه نشده است</span>';
+
+            var html = `
+                <div class="card border-0 shadow-sm rounded-4 p-4" dir="rtl">
+                    <h5 class="fw-medium mb-3 border-bottom pb-2">
+                        <i class="ti ti-user-check text-primary me-1"></i> اطلاعات نوبت
+                    </h5>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <small class="text-muted d-block">نام</small>
+                            <strong>${d.name}</strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">نام خانوادگی</small>
+                            <strong>${d.lName}</strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">کد ملی</small>
+                            <strong>${d.nationalCode}</strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">بیمه</small>
+                            <strong>${d.insurance}</strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">خدمت</small>
+                            <strong>${d.service}</strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">تاریخ</small>
+                            <strong>${d.date}</strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">ساعت</small>
+                            <strong dir='ltr'>${d.time}</strong>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">وضعیت مراجعه</small>
+                            ${visitedBadge}
+                        </div>
+                    </div>
+                </div>`;
+
+            $("#resultSection").html(html).fadeIn();
+        }
+
+        // ✅ با Enter هم جستجو کار کنه
+        $("#appCode").keypress(function (e) {
+            if (e.which === 13) SearchAppointment();
+        });
+    </script>
+}

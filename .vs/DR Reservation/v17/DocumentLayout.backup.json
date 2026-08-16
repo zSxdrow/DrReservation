@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\DR Reservation\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BB0ACB84-0558-4C3C-B567-FBD1188356ED}|Presentation\\Presentation.csproj|c:\\users\\user\\source\\repos\\dr reservation\\presentation\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BB0ACB84-0558-4C3C-B567-FBD1188356ED}|Presentation\\Presentation.csproj|solutionrelative:presentation\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91F6FC8C-7D64-4EC8-8D34-AB5F28B195D3}|Application\\Dr.Application.csproj|c:\\users\\user\\source\\repos\\dr reservation\\application\\services\\appoinments\\command\\addappoinment\\iaddnewappoinment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91F6FC8C-7D64-4EC8-8D34-AB5F28B195D3}|Application\\Dr.Application.csproj|solutionrelative:application\\services\\appoinments\\command\\addappoinment\\iaddnewappoinment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB0ACB84-0558-4C3C-B567-FBD1188356ED}|Presentation\\Presentation.csproj|c:\\users\\user\\source\\repos\\dr reservation\\presentation\\views\\appoinment\\findappoinmentbycode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BB0ACB84-0558-4C3C-B567-FBD1188356ED}|Presentation\\Presentation.csproj|solutionrelative:presentation\\views\\appoinment\\findappoinmentbycode.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB0ACB84-0558-4C3C-B567-FBD1188356ED}|Presentation\\Presentation.csproj|c:\\users\\user\\source\\repos\\dr reservation\\presentation\\controllers\\appoinment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB0ACB84-0558-4C3C-B567-FBD1188356ED}|Presentation\\Presentation.csproj|solutionrelative:presentation\\controllers\\appoinment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB0ACB84-0558-4C3C-B567-FBD1188356ED}|Presentation\\Presentation.csproj|c:\\users\\user\\source\\repos\\dr reservation\\presentation\\views\\appoinment\\addappoinment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BB0ACB84-0558-4C3C-B567-FBD1188356ED}|Presentation\\Presentation.csproj|solutionrelative:presentation\\views\\appoinment\\addappoinment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\DR Reservation\\Presentation\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Presentation\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\DR Reservation\\Presentation\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Presentation\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACMAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-22T08:42:05.076Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IAddNewAppoinment.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\DR Reservation\\Application\\Services\\Appoinments\\Command\\AddAppoinment\\IAddNewAppoinment.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\Appoinments\\Command\\AddAppoinment\\IAddNewAppoinment.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\DR Reservation\\Application\\Services\\Appoinments\\Command\\AddAppoinment\\IAddNewAppoinment.cs",
+              "RelativeToolTip": "Application\\Services\\Appoinments\\Command\\AddAppoinment\\IAddNewAppoinment.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAwwCEAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-22T06:47:18.065Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AddAppoinment.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\DR Reservation\\Presentation\\Views\\Appoinment\\AddAppoinment.cshtml",
+              "RelativeDocumentMoniker": "Presentation\\Views\\Appoinment\\AddAppoinment.cshtml",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\DR Reservation\\Presentation\\Views\\Appoinment\\AddAppoinment.cshtml",
+              "RelativeToolTip": "Presentation\\Views\\Appoinment\\AddAppoinment.cshtml",
+              "ViewState": "AgIAAH8BAAAAAAAAAAAAAOkAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-22T06:40:15.242Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Appoinment.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\DR Reservation\\Presentation\\Controllers\\Appoinment.cs",
+              "RelativeDocumentMoniker": "Presentation\\Controllers\\Appoinment.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\DR Reservation\\Presentation\\Controllers\\Appoinment.cs",
+              "RelativeToolTip": "Presentation\\Controllers\\Appoinment.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwB0AAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-22T06:17:38.264Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FindAppoinmentByCode.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\DR Reservation\\Presentation\\Views\\Appoinment\\FindAppoinmentByCode.cshtml",
+              "RelativeDocumentMoniker": "Presentation\\Views\\Appoinment\\FindAppoinmentByCode.cshtml",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\DR Reservation\\Presentation\\Views\\Appoinment\\FindAppoinmentByCode.cshtml",
+              "RelativeToolTip": "Presentation\\Views\\Appoinment\\FindAppoinmentByCode.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAkAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-22T06:17:30.892Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

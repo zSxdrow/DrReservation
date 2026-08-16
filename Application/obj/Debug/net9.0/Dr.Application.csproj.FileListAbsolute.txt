@@ -1,0 +1,17 @@
+C:\Users\User\source\repos\DR Reservation\Application\bin\Debug\net9.0\Dr.Application.deps.json
+C:\Users\User\source\repos\DR Reservation\Application\bin\Debug\net9.0\Dr.Application.dll
+C:\Users\User\source\repos\DR Reservation\Application\bin\Debug\net9.0\Dr.Application.pdb
+C:\Users\User\source\repos\DR Reservation\Application\bin\Debug\net9.0\Common.dll
+C:\Users\User\source\repos\DR Reservation\Application\bin\Debug\net9.0\Dr.Domain.dll
+C:\Users\User\source\repos\DR Reservation\Application\bin\Debug\net9.0\Common.pdb
+C:\Users\User\source\repos\DR Reservation\Application\bin\Debug\net9.0\Dr.Domain.pdb
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\Dr.Application.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\Dr.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\Dr.Application.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\Dr.Application.AssemblyInfo.cs
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\Dr.Application.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\Dr.Appli.FFDBD8EB.Up2Date
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\Dr.Application.dll
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\refint\Dr.Application.dll
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\Dr.Application.pdb
+C:\Users\User\source\repos\DR Reservation\Application\obj\Debug\net9.0\ref\Dr.Application.dll

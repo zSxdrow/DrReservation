@@ -1,0 +1,11 @@
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\bin\Debug\net9.0\Dr.Infrastructure.deps.json
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\bin\Debug\net9.0\Dr.Infrastructure.dll
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\bin\Debug\net9.0\Dr.Infrastructure.pdb
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\obj\Debug\net9.0\Dr.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\obj\Debug\net9.0\Dr.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\obj\Debug\net9.0\Dr.Infrastructure.AssemblyInfo.cs
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\obj\Debug\net9.0\Dr.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\obj\Debug\net9.0\Dr.Infrastructure.dll
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\obj\Debug\net9.0\refint\Dr.Infrastructure.dll
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\obj\Debug\net9.0\Dr.Infrastructure.pdb
+C:\Users\User\source\repos\DR Reservation\Dr.Infrastructure\obj\Debug\net9.0\ref\Dr.Infrastructure.dll
